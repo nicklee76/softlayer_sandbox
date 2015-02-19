@@ -14,5 +14,4 @@ You will need to edit the softlayer_config.json file as following.
   + SSHKeys: List of ID(s) of SSH key(s) to be used.  (For example, [12345, 23345])
   + HourlyBilling: True if you want the server to be billed for hourly. (For example, "True")
   + LocalDisk: True if you want to use local disk.  (For example, "True")
-  + PostProvisionScript: URL of script that will run after the server has been provisioned.  
-                        (For example, "https://web_storage.acme_cloud.com/PostProvisionScript.sh")
+  + PostProvisionScript: URL of script that will run after the server has been provisioned.  (For example, "https://web_storage.acme_cloud.com/PostProvisionScript.sh")
