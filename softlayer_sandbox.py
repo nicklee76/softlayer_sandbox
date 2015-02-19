@@ -38,10 +38,6 @@ config = json.loads(open(config_file, "r").read())
 client = SoftLayer.Client(username=config['SoftLayer']['UserName'],
                           api_key=config['SoftLayer']['APIKey'])
 
-#data_center = config['SoftLayer']['Environments']['DataCenter']
-#domain_name = config['SoftLayer']['Environments']['Domain']
-#linux_instance = config['SoftLayer']['Environments']['Linux']
-
 created_instances = []
 
 def create_cleanup_command():
