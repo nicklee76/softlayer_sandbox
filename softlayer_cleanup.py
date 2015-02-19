@@ -14,7 +14,7 @@ except ImportError:
 parser = argparse.ArgumentParser()
 parser.add_argument('--instances', '-i', required = True,
                     help="[CoOlNiCk] Comma separated instance IDs within single quotation")
-parser.add_argument("--debug", "-d", action="store", default=False,
+parser.add_argument("--debug", "-d", action="store_true", default=False,
                     help="[CoOlNiCk] Enable debug mode")
 args = parser.parse_args()
 
