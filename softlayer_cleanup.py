@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
-import argparse, json, sys, time
+# coolnick
+
+import argparse, json, sys
 
 try:
     import SoftLayer
@@ -10,7 +12,10 @@ except ImportError:
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--instances', '-i', required = True)
+parser.add_argument('--instances', '-i', required = True,
+                    help="[CoOlNiCk] Comma separated instance IDs within single quotation")
+parser.add_argument("--debug", "-d", action="store", default=False,
+                    help="[CoOlNiCk] Enable debug mode")
 args = parser.parse_args()
 
 instance_list = args.instances.split(',')

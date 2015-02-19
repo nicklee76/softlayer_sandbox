@@ -1,0 +1,21 @@
+{
+  "SoftLayer":{
+    "UserName": "EDIT_HERE",
+    "APIKey": "EDIT_HERE",
+    "Environments":{
+      "DataCenter": "EDIT_HERE",
+      "Domain": "EDIT_HERE",
+      "Linux":{
+        "NumberOfServer": 2,
+        "CPUs": 1,
+        "Memory" : 1024,
+        "OSCode": "CENTOS_6_64",
+        "HostNamePrefix": "EDIT_HERE",
+        "SSHKeys": [EDIT_HERE],
+        "HourlyBilling": "True",
+        "LocalDisk": "False",
+        "PostProvisionScript": "EDIT_HERE"
+      }
+    }
+  }
+}

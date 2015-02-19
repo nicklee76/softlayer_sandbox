@@ -18,6 +18,8 @@ config_file = './softlayer_config.json'
 parser = argparse.ArgumentParser()
 parser.add_argument("--unique_id", "-u", action="store", default=False,
                     help="[CoOlNiCk] Unique ID for this demo")
+parser.add_argument("--debug", "-d", action="store", default=False,
+                    help="[CoOlNiCk] Enable debug mode")
 args = parser.parse_args()
 
 epoch_time=time.time()
@@ -35,8 +37,6 @@ if args.unique_id != False:
 config = json.loads(open(config_file, "r").read())
 client = SoftLayer.Client(username=config['SoftLayer']['UserName'],
                           api_key=config['SoftLayer']['APIKey'])
-
-# print client['Account'].getObject()['officePhone']
 
 data_center = config['SoftLayer']['Environments']['DataCenter']
 domain_name = config['SoftLayer']['Environments']['Domain']
@@ -80,8 +80,10 @@ while counter <= linux_instance['NumberOfServer']:
     print ('\t %s' % instance)
     print ('>\n')
 
-print ('[DEBUG] List of instances(IDs) created - %s' % created_instances)
-print ('>\n')
+if args.debug:
+    print ('[DEBUG] List of instances(IDs) created - %s' % created_instances)
+    print ('>\n')
 
 create_cleanup_command()
+
 print ('#### DONE ####')
