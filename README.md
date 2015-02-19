@@ -22,6 +22,6 @@ You will need to edit the softlayer_config.json file as following.
   + It uses "PostProvisonScript" to perform required installations and configurations.  Refer to http://knowledgelayer.softlayer.com/procedure/add-provisioning-script for more information on PostProvisionScript.
   + After the script is completed it will provide complete command line to use to clean up (terminate) the instances created by this script. 
 
-### cleanup.py
+### softlayer_cleanup.py
   + Cleans up (terminate) instances created by the "softlayer_sandbox.py" script.
 
