@@ -1,5 +1,6 @@
 # softlayer_sandbox
-Create (and remove) cloud instances on SoftLayer via Python Script
+
+This Python scripts will create (and/or remove) cloud instances on SoftLayer.
 
 You will need to edit the softlayer_config.json file as following.
   + UserName: Your SoftLayer login ID. (For example, "JohnDoe")
@@ -15,3 +16,12 @@ You will need to edit the softlayer_config.json file as following.
   + HourlyBilling: True if you want the server to be billed for hourly. (For example, "True")
   + LocalDisk: True if you want to use local disk.  (For example, "True")
   + PostProvisionScript: URL of script that will run after the server has been provisioned.  (For example, "https://web_storage.acme_cloud.com/PostProvisionScript.sh")
+
+softlayer_sandbox.py
+  + Create cloud instances on SoftLayer.
+  + It uses "PostProvisonScript" to perform required installations and configurations.  Refer to http://knowledgelayer.softlayer.com/procedure/add-provisioning-script for more information on PostProvisionScript.
+  + After the script is completed it will provide complete command line to use to clean up (terminate) the instances created by this script. 
+
+cleanup.py
+  + Clean up (terminate) instances created by the "softlayer_sandbox.py" script.
+
