@@ -18,10 +18,10 @@ You will need to edit the softlayer_config.json file as following.
   + PostProvisionScript: URL of script that will run after the server has been provisioned.  (For example, "https://web_storage.acme_cloud.com/PostProvisionScript.sh")
 
 ### softlayer_sandbox.py
-  + Create cloud instances on SoftLayer.
+  + Creates cloud instances on SoftLayer.
   + It uses "PostProvisonScript" to perform required installations and configurations.  Refer to http://knowledgelayer.softlayer.com/procedure/add-provisioning-script for more information on PostProvisionScript.
   + After the script is completed it will provide complete command line to use to clean up (terminate) the instances created by this script. 
 
 ### cleanup.py
-  + Clean up (terminate) instances created by the "softlayer_sandbox.py" script.
+  + Cleans up (terminate) instances created by the "softlayer_sandbox.py" script.
 
