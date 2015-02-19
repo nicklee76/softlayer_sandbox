@@ -65,7 +65,6 @@ for instance in instance_list:
 
     print ('>\n')
 
-#check_power_state(instance_list)
 
 
 
