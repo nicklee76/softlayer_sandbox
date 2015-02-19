@@ -18,7 +18,7 @@ config_file = './softlayer_config.json'
 parser = argparse.ArgumentParser()
 parser.add_argument("--unique_id", "-u", action="store", default=False,
                     help="[CoOlNiCk] Unique ID for this demo")
-parser.add_argument("--debug", "-d", action="store", default=False,
+parser.add_argument("--debug", "-d", action="store_true", default=False,
                     help="[CoOlNiCk] Enable debug mode")
 args = parser.parse_args()
 
@@ -38,47 +38,52 @@ config = json.loads(open(config_file, "r").read())
 client = SoftLayer.Client(username=config['SoftLayer']['UserName'],
                           api_key=config['SoftLayer']['APIKey'])
 
-data_center = config['SoftLayer']['Environments']['DataCenter']
-domain_name = config['SoftLayer']['Environments']['Domain']
-linux_instance = config['SoftLayer']['Environments']['Linux']
+#data_center = config['SoftLayer']['Environments']['DataCenter']
+#domain_name = config['SoftLayer']['Environments']['Domain']
+#linux_instance = config['SoftLayer']['Environments']['Linux']
 
 created_instances = []
 
 def create_cleanup_command():
     print('\n[INFO] Please use following command to cancel all instances created using this script.')
-    print('\t./cleanup.py --instances=\'%s\'\n' % (','.join(map(str, created_instances))))
+    print('\t./softlayer_cleanup.py --instances=\'%s\'\n' % (','.join(map(str, created_instances))))
+
 
 def process_exceptions(inst):
     create_cleanup_command()
     sys.exit('[ERROR] Terminating the process. (%s)' % inst)
 
+
+def create_instance(instance):
+    counter = 1
+    while counter <= instance['NumberOfServer']:
+        print ('[INFO] Creating %s-%s%d...' % (unique_id, instance['HostNamePrefix'], counter))
+        try:
+            instance_created = vs_manager.create_instance(
+                hostname = unique_id + "-" + instance['HostNamePrefix'] + str(counter),
+                domain = instance['Domain'],
+                cpus = instance['CPUs'],
+                memory = instance['Memory'],
+                hourly = instance['HourlyBilling'],
+                os_code = instance['OSCode'],
+                local_disk = instance['LocalDisk'],
+                post_uri = instance['PostProvisionScript'],
+                ssh_keys = instance['SSHKeys'],
+                datacenter = instance['DataCenter']
+            )
+        except (KeyboardInterrupt, Exception) as inst:
+            process_exceptions(inst)
+
+        print ('[INFO] Created instance(HostName: %s, InstanceID: %s)'
+               % (instance_created['hostname'], str(instance_created['id'])))
+        created_instances.append(str(instance_created['id']))
+        print ('>\n')
+        counter += 1
+
 vs_manager = SoftLayer.VSManager(client)
 
-# create linux instances
-counter = 1
-while counter <= linux_instance['NumberOfServer']:
-    print ('[INFO] Creating %s-%s%d...' % (unique_id, linux_instance['HostNamePrefix'], counter))
-    try:
-        instance = vs_manager.create_instance(
-            hostname = unique_id + "-" + linux_instance['HostNamePrefix'] + str(counter),
-            domain = domain_name,
-            cpus = linux_instance['CPUs'],
-            memory = linux_instance['Memory'],
-            hourly = linux_instance['HourlyBilling'],
-            os_code = linux_instance['OSCode'],
-            local_disk = linux_instance['LocalDisk'],
-            post_uri = linux_instance['PostProvisionScript'],
-            ssh_keys = linux_instance['SSHKeys'],
-            datacenter = data_center
-        )
-    except (KeyboardInterrupt, Exception) as inst:
-        process_exceptions(inst)
-
-    counter += 1
-    print ('[INFO] Created instance(HostName: %s, InstanceID: %s)' % (instance['hostname'], str(instance['id'])))
-    created_instances.append(str(instance['id']))
-    print ('\t %s' % instance)
-    print ('>\n')
+for instance in config['SoftLayer']['Environments']['Instances']:
+    create_instance(instance)
 
 if args.debug:
     print ('[DEBUG] List of instances(IDs) created - %s' % created_instances)
