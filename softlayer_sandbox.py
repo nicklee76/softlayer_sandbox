@@ -13,13 +13,13 @@ except ImportError:
     print('\n[CoOlNiCk] You need [SoftLayer] modules to run this script')
     sys.exit('Terminating the process...')
 
-config_file = './softlayer_config.json'
-
 parser = argparse.ArgumentParser()
 parser.add_argument("--unique_id", "-u", action="store", default=False,
                     help="[CoOlNiCk] Unique ID for this demo")
 parser.add_argument("--debug", "-d", action="store_true", default=False,
                     help="[CoOlNiCk] Enable debug mode")
+parser.add_argument("--input", "-i", action="store", default="softlayer_config.json",
+                    help="[CoOlNiCk] Name of the input file.  Default is [cp-config.json]")
 args = parser.parse_args()
 
 epoch_time=time.time()
@@ -34,7 +34,7 @@ if not os.path.exists(log_directory):
 if args.unique_id != False:
     unique_id = args.unique_id
 
-config = json.loads(open(config_file, "r").read())
+config = json.loads(open(args.input, "r").read())
 client = SoftLayer.Client(username=config['SoftLayer']['UserName'],
                           api_key=config['SoftLayer']['APIKey'])
 
