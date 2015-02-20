@@ -16,14 +16,15 @@ parser.add_argument('--instances', '-i', required = True,
                     help="[CoOlNiCk] Comma separated instance IDs within single quotation")
 parser.add_argument("--debug", "-d", action="store_true", default=False,
                     help="[CoOlNiCk] Enable debug mode")
+parser.add_argument("--config_file", '-c', action="store", default="softlayer_config.json",
+                    help="[CoOlNiCk] Name of the input file.  Default is [softlayer_config.json]")
 args = parser.parse_args()
 
 instance_list = args.instances.split(',')
 
 print ('List of instances to be cancelled - %s' % instance_list)
 
-config_file = './softlayer_config.json'
-config = json.loads(open(config_file, "r").read())
+config = json.loads(open(args.config_file, "r").read())
 client = SoftLayer.Client(username=config['SoftLayer']['UserName'],
                           api_key=config['SoftLayer']['APIKey'])
 

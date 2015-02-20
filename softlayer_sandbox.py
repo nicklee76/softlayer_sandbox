@@ -18,7 +18,7 @@ parser.add_argument("--unique_id", "-u", action="store", default=False,
                     help="[CoOlNiCk] Unique ID for this demo")
 parser.add_argument("--debug", "-d", action="store_true", default=False,
                     help="[CoOlNiCk] Enable debug mode")
-parser.add_argument("--input", "-i", action="store", default="softlayer_config.json",
+parser.add_argument("--config_file", "-c", action="store", default="softlayer_config.json",
                     help="[CoOlNiCk] Name of the input file.  Default is [cp-config.json]")
 args = parser.parse_args()
 
@@ -34,7 +34,7 @@ if not os.path.exists(log_directory):
 if args.unique_id != False:
     unique_id = args.unique_id
 
-config = json.loads(open(args.input, "r").read())
+config = json.loads(open(args.config_file, "r").read())
 client = SoftLayer.Client(username=config['SoftLayer']['UserName'],
                           api_key=config['SoftLayer']['APIKey'])
 
@@ -42,7 +42,8 @@ created_instances = []
 
 def create_cleanup_command():
     print('\n[INFO] Please use following command to cancel all instances created using this script.')
-    print('\t./softlayer_cleanup.py --instances=\'%s\'\n' % (','.join(map(str, created_instances))))
+    print('\t./softlayer_cleanup.py -d --config_file %s --instances=\'%s\'\n'
+          % (args.config_file, ','.join(map(str, created_instances))))
 
 
 def process_exceptions(inst):
