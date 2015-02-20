@@ -44,11 +44,15 @@ for instance in instance_list:
         while not power_off_result:
             try:
                 power_off_result = client['SoftLayer_Virtual_Guest'].powerOffSoft(id=instance)
-                if args.debug: print ('[DEBUG] Result for SoftPowerOff for instance(ID:%s) %s' % (str(instance), power_off_result))
+                if args.debug:
+                    print ('[DEBUG] Result for SoftPowerOff for instance(ID:%s) %s'
+                           % (str(instance), power_off_result))
             except SoftLayer.SoftLayerAPIError as e:
                 print('[ERROR] FaultCode= %s, FaultString= %s' % (e.faultCode, e.faultString))
                 if e.faultCode == "SoftLayer_Exception_ObjectNotFound":
-                    if args.debug: print ('[DEBUG] Instance not found. Skipping the PowerOff request for the instance(%s)' % instance)
+                    if args.debug:
+                        print ('[DEBUG] Instance not found. Skipping the PowerOff request for the instance(%s)'
+                               % instance)
                     power_off_result = True
                     cancel_result = True
                 else:
