@@ -14,17 +14,17 @@ except ImportError:
     sys.exit('Terminating the process...')
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--unique_id", "-u", action="store", default=False,
-                    help="[CoOlNiCk] Unique ID for this demo")
-parser.add_argument("--debug", "-d", action="store_true", default=False,
-                    help="[CoOlNiCk] Enable debug mode")
-parser.add_argument("--config_file", "-c", action="store", default="softlayer_config.json",
-                    help="[CoOlNiCk] Name of the input file.  Default is [cp-config.json]")
+parser.add_argument('--unique_id', '-u', action='store', default=False,
+                    help='[CoOlNiCk] Unique ID for this demo')
+parser.add_argument('--debug', '-d', action='store_true', default=False,
+                    help='[CoOlNiCk] Enable debug mode')
+parser.add_argument('--config_file', '-c', action='store', default='softlayer_config.json',
+                    help='[CoOlNiCk] Name of the input file.  Default is [cp-config.json]')
 args = parser.parse_args()
 
 epoch_time=time.time()
 unique_id = str(int(epoch_time))
-current_time=time.strftime("%m%d-%H%M%S", time.gmtime(epoch_time))
+#current_time=time.strftime("%m%d-%H%M%S", time.gmtime(epoch_time))
 
 current_directory=os.path.dirname(os.path.abspath(__file__))
 log_directory=current_directory+'/log/'

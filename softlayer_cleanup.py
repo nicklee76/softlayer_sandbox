@@ -13,11 +13,11 @@ except ImportError:
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--instances', '-i', required = True,
-                    help="[CoOlNiCk] Comma separated instance IDs within single quotation")
-parser.add_argument("--debug", "-d", action="store_true", default=False,
-                    help="[CoOlNiCk] Enable debug mode")
-parser.add_argument("--config_file", '-c', action="store", default="softlayer_config.json",
-                    help="[CoOlNiCk] Name of the input file.  Default is [softlayer_config.json]")
+                    help='[CoOlNiCk] Comma separated instance IDs within single quotation')
+parser.add_argument('--debug', '-d', action='store_true', default=False,
+                    help='[CoOlNiCk] Enable debug mode')
+parser.add_argument('--config_file', '-c', action='store', default='softlayer_config.json',
+                    help='[CoOlNiCk] Name of the input file.  Default is [softlayer_config.json]')
 args = parser.parse_args()
 
 instance_list = args.instances.split(',')
