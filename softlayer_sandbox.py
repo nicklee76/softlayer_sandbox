@@ -24,7 +24,6 @@ args = parser.parse_args()
 
 epoch_time=time.time()
 unique_id = str(int(epoch_time))
-#current_time=time.strftime("%m%d-%H%M%S", time.gmtime(epoch_time))
 
 current_directory=os.path.dirname(os.path.abspath(__file__))
 log_directory=current_directory+'/log/'
